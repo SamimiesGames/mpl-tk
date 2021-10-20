@@ -18,6 +18,8 @@ class Trace:
     queue: list[Call] = field(default_factory=list)
     label: str = "trace-latest"
 
+    _error: bool = False
+
     def put(self, call: Call):
         self.queue.append(call)
 
@@ -26,3 +28,13 @@ class Trace:
 
         for call in self.queue:
             click.secho(f"{call}", fg="red")
+
+    def halt(self):
+        self._error = True
+
+    def cancel_halt(self):
+        self._error = False
+
+    @property
+    def latest_call_failed(self):
+        return self._error

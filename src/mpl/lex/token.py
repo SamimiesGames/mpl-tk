@@ -8,5 +8,5 @@ class Token(ABC):
     label: str
 
     @abstractmethod
-    def match(self, strproc: Strproc):
+    def match(self, strproc: Strproc) -> bool:
         ...
